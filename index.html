@@ -84,6 +84,7 @@
         }
         .theme-toggle:hover { background: var(--primary); color: #000; transform: rotate(30deg); }
 
+        /* ===== HERO SECTION WITH ANIMATION ===== */
         .hero {
             display: flex;
             align-items: center;
@@ -92,7 +93,9 @@
             padding: 80px 8%;
             min-height: 85vh;
             flex-wrap: wrap;
+            position: relative;
         }
+
         .hero-image img {
             width: 220px;
             height: 220px;
@@ -101,12 +104,82 @@
             border: 4px solid var(--primary);
             box-shadow: 0 0 40px var(--primary-glow);
             transition: 0.5s;
+            z-index: 2;
+            position: relative;
         }
         .hero-image img:hover { transform: scale(1.05); }
-        .hero-content { max-width: 600px; }
-        .hero-content h1 { font-size: 3.5rem; font-weight: 800; color: var(--text-color); line-height: 1.1; }
-        .hero-content h2 { font-size: 1.8rem; color: var(--primary); font-weight: 400; }
-        .hero-content p { font-size: 1.1rem; line-height: 1.8; color: var(--text-light); }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== ANIMATION: Pull message from right to center ===== */
+        .animated-message {
+            position: absolute;
+            right: -100%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 40px var(--primary-glow);
+            opacity: 0;
+            animation: pullFromRight 4s ease-in-out infinite;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        @keyframes pullFromRight {
+            0% {
+                right: -100%;
+                opacity: 0;
+                transform: translateY(-50%) scale(0.5);
+            }
+            20% {
+                right: 10%;
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+            }
+            40% {
+                right: 5%;
+                opacity: 1;
+                transform: translateY(-50%) scale(1.1) rotate(-2deg);
+            }
+            60% {
+                right: 10%;
+                opacity: 1;
+                transform: translateY(-50%) scale(1) rotate(0deg);
+            }
+            80% {
+                right: 20%;
+                opacity: 0.8;
+                transform: translateY(-50%) scale(0.9);
+            }
+            100% {
+                right: -100%;
+                opacity: 0;
+                transform: translateY(-50%) scale(0.5);
+            }
+        }
+
+        .hero-content h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            color: var(--text-color); 
+            line-height: 1.1; 
+        }
+        .hero-content h2 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            font-weight: 400; 
+        }
+        .hero-content p { 
+            font-size: 1.1rem; 
+            line-height: 1.8; 
+            color: var(--text-light); 
+        }
 
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn {
@@ -122,6 +195,30 @@
         .btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 8px 25px var(--primary-glow); }
         .btn-outline { background: transparent; border: 2px solid var(--glass-border); color: var(--text-color); }
         .btn-outline:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* ===== FLOATING WHATSAPP BUTTON ===== */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            background: #25D366;
+            color: #fff;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
 
         .back-to-top {
             position: fixed;
@@ -139,7 +236,7 @@
             opacity: 0;
             visibility: hidden;
             transition: 0.3s;
-            z-index: 999;
+            z-index: 998;
         }
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover { transform: translateY(-5px); }
@@ -153,6 +250,7 @@
             .hero { padding: 50px 5%; gap: 30px; }
             .hero-content h1 { font-size: 2.5rem; }
             .hero-image img { width: 160px; height: 160px; }
+            .animated-message { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -172,6 +270,11 @@
         </header>
 
         <section class="hero">
+            <!-- Animated Message that pulls from right to center -->
+            <div class="animated-message">
+                🚀 Welcome!
+            </div>
+
             <div class="hero-image">
                 <img src="Snapchat-595034578.jpg" alt="Michael Waweru">
             </div>
@@ -193,6 +296,11 @@
             <p>&copy; 2026 <span>Michael Waweru</span> | Frontend Developer</p>
         </footer>
     </div>
+
+    <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+    <a href="https://wa.me/254111498830" target="_blank" class="floating-whatsapp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
